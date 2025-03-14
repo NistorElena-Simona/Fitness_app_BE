@@ -164,7 +164,8 @@ curl -X POST http://localhost:3000/user/register \
 
 # Verify Email
 curl -X GET http://localhost:3000/user/verify-email?token=yourVerificationToken
-#Login with google
+
+# Login with google
 http://localhost:3000/auth/google
 
 # Add Role to User
