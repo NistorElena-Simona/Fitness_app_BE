@@ -51,7 +51,6 @@ DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_N
 GOOGLE_CLIENT_ID= your google id (SEE LAST SECTION OF THIS README)
 GOOGLE_CLIENT_SECRET= your google secret
 GOOGLE_CALLBACK_URL="${BASE_URL}/auth/google/callback"
-#DATABASE_URL="postgresql://admin:admin@localhost:5432/nestjs_db?schema=public"
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER= your email
