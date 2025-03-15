@@ -2,8 +2,6 @@ import { MailService } from './../mail/mail.service';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { RequestResetDto } from './dto/request.reset.dto';
 import { PrismaService } from './../../database/prisma.service';
-// src/modules/auth/auth.service.ts
-
 import { Injectable, UnauthorizedException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';

@@ -83,4 +83,25 @@ export class UserService {
   async deleteRefreshToken(token: string) {
     await this.prisma.refreshToken.delete({ where: { token } });
   }
+  
+  async getUserInfoFromToken(token: string) {
+    try {
+      const decoded = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET, 
+      });
+      const userId = decoded.userId;
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+      });
+  
+      if (!user) {
+        throw new BadRequestException('User not found');
+      }
+  
+      return user;
+    } catch (error) {
+      console.error('Token verification failed:', error.message);
+      throw new BadRequestException('Invalid token');
+    }
+  }
 }
