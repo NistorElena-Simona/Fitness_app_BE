@@ -4,7 +4,7 @@ import * as nodemailer from 'nodemailer';
 @Injectable()
 export class MailService {
   private transporter: nodemailer.Transporter;
-
+  private readonly baseUrl = process.env.BASE_URL;
   constructor() {
     this.transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -28,7 +28,7 @@ export class MailService {
   }
 
   async sendVerificationEmail(email: string, token: string) {
-    const verificationUrl = `http://localhost:3000/user/verify-email?token=${token}`;
+    const verificationUrl = `${this.baseUrl}/user/verify-email?token=${token}`;
 
     await this.sendMail(
       email,
@@ -39,7 +39,7 @@ export class MailService {
   }
 
   async sendPasswordResetEmail(email: string, resetToken: string) {
-    const resetPasswordUrl = `http://localhost:3000/auth/reset-password?token=${resetToken}`;
+    const resetPasswordUrl = `${this.baseUrl}/auth/reset-password?token=${resetToken}`;
 
     await this.sendMail(
       email,

@@ -1,5 +1,3 @@
-// src/modules/auth/interfaces/jwt-payload.interface.ts
-
 export interface JwtPayload {
     sub: string; // This will represent the user ID
     email: string; // This will be the user's email (or any other unique identifier)
