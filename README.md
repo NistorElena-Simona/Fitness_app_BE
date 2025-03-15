@@ -35,7 +35,7 @@ BE
 ```bash
 $ npm install
 ```
-Create .env file in root and put following variables(make sure all fields are completed with requested data):
+Create .env file in root and put following variables(make sure all fields that begin with "your..." are completed with requested data):
 
 ```bash
 BASE_URL="http://localhost:${PORT}"
