@@ -19,26 +19,29 @@ export class UserService {
   async register(dto: RegisterDto) {
     const existingUser = await this.prisma.user.findUnique({ where: { email: dto.email } });
     if (existingUser) throw new BadRequestException('Email already in use');
-
+  
     const hashedPassword = await bcrypt.hash(dto.password, 10);
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationExpiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24);
 
+    const userCount = await this.prisma.user.count();
+  
     const user = await this.prisma.user.create({
       data: {
         email: dto.email,
         password: hashedPassword,
         name: dto.name,
-        roles: ['EMPLOYEE'],
+        roles: userCount === 0 ? ['ADMIN'] : ['EMPLOYEE'],
         verificationToken,
         verificationExpiresAt,
       },
     });
-
+  
     await this.mailService.sendVerificationEmail(user.email, verificationToken);
-
+  
     return { message: 'User registered. Check your email for verification link.' };
   }
+  
 
   async verifyEmail(token: string) {
     const user = await this.prisma.user.findFirst({
