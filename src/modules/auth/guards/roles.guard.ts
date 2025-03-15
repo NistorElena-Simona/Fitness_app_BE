@@ -28,10 +28,10 @@ export class RolesGuard implements CanActivate {
 
     const userRoles = decodedToken.roles;
 
-    // ✅ Corrected Role Hierarchy
+  
     const roleHierarchy: Record<Role, Role[]> = {
-      [Role.ADMIN]: [Role.ADMIN, Role.MANAGER, Role.EMPLOYEE], // Admin has all privileges
-      [Role.MANAGER]: [Role.MANAGER, Role.EMPLOYEE], // Manager has Manager & Employee roles
+      [Role.ADMIN]: [Role.ADMIN, Role.MANAGER, Role.EMPLOYEE], 
+      [Role.MANAGER]: [Role.MANAGER, Role.EMPLOYEE],
       [Role.EMPLOYEE]: [Role.EMPLOYEE], 
     };
 
