@@ -17,9 +17,8 @@ export class UserController {
     return this.userService.verifyEmail(token);
   }
 
-  
   @UseGuards(JwtAuthGuard)
-  @Get('profile')
+  @Get('me')
   async getUserProfile(@Req() req) {
     const token = req.headers.authorization.split(' ')[1]; 
     const user = await this.userService.getUserInfoFromToken(token);
