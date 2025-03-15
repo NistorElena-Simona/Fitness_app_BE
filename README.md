@@ -164,7 +164,7 @@ Technology stack
 2.	Admin can delete users → admin/delete-user/:userId
 3.	Admin can activate/deactivate users → admin/activate-user/:userId
 
-
+# (Import curl in postman for testing)
 # Login
 curl -X POST http://localhost:3000/auth/login \
      -H "Content-Type: application/json" \
