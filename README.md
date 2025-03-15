@@ -48,8 +48,8 @@ DB_PORT=5432
 PG_VOLUME=postgres_data
 DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}"
 
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
+GOOGLE_CLIENT_ID= your google id (SEE LAST SECTION OF THIS README)
+GOOGLE_CLIENT_SECRET= your google secret
 GOOGLE_CALLBACK_URL="${BASE_URL}/auth/google/callback"
 #DATABASE_URL="postgresql://admin:admin@localhost:5432/nestjs_db?schema=public"
 SMTP_HOST=smtp.gmail.com
@@ -228,14 +228,11 @@ curl -X PUT http://localhost:3000/admin/deactivate-user/{userId} \
      -H "Authorization: Bearer yourAccessToken"
 
 ## Get Google ID (for login/register with google)
-## Configure Google Developer Console
-Go to the Google Developer Console.
+Go to the Google Developer Console: https://console.cloud.google.com
 Create a new project (or use an existing one).
 In the "Credentials" tab, click "Create Credentials" and select "OAuth 2.0 Client IDs".
 Set up the OAuth consent screen and configure the credentials (client ID and secret).
-Ensure you configure the Authorized redirect URIs. For example:
-
-http://localhost:3000/auth/google/callback
+Ensure you configure the Authorized redirect URIs. For example redirect URI for this app is http://localhost:3000/auth/google/callback
 
 
 >>>>>>> dd98b29 (readme)
