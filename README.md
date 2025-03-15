@@ -35,6 +35,41 @@ BE
 ```bash
 $ npm install
 ```
+Create .env file in root and put following variables:
+
+```bash
+BASE_URL="http://localhost:${PORT}"
+PORT=3000
+
+DB_USER=admin
+DB_PASSWORD=admin
+DB_NAME=nestjs_db
+DB_PORT=5432
+PG_VOLUME=postgres_data
+DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}"
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_CALLBACK_URL="${BASE_URL}/auth/google/callback"
+#DATABASE_URL="postgresql://admin:admin@localhost:5432/nestjs_db?schema=public"
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER= your email
+SMTP_PASS= your smtp pass (get pass from https://myaccount.google.com/apppasswords)
+SMTP_FROM="Your App <your email>"
+JWT_SECRET="secret"
+```
+ Run docker container
+
+```bash
+$ docker-compose up
+```
+
+Migrate prisma db
+
+```bash
+$ npx prisma migrate dev
+```
 
 ## Compile and run the project
 
