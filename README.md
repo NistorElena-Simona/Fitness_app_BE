@@ -191,7 +191,7 @@ curl -X POST http://localhost:3000/auth/logout \
      -d '{"refreshToken": "yourRefreshToken"}'
 
 
-# Register a new user(first user registred in db will be admin)
+# Register a new user(first user registered in db will be admin)
 curl -X POST http://localhost:3000/user/register \
      -H "Content-Type: application/json" \
      -d '{"email": "user@example.com", "password": "yourPassword", "name": "Your Name"}'
