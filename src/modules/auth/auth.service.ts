@@ -18,6 +18,28 @@ export class AuthService {
   ) {}
 
   async login(user: any) {
+
+    if (!user.isVerified) {
+
+      const verificationToken = crypto.randomBytes(32).toString('hex');
+      const verificationExpiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24);
+  
+      await this.prisma.user.update({
+        where: { id: user.id },
+        data: {
+          verificationToken,
+          verificationExpiresAt,
+        },
+      });
+      await this.mailService.sendVerificationEmail(user.email, verificationToken);
+  
+      throw new UnauthorizedException(
+        "User is not verified. Please check your email to activate your account."
+      );
+    }
+    if (!user.isActive) {
+      throw new UnauthorizedException("User is deactivated. Please contact manager or admin");
+    }
     const payload = { userId: user.id, roles: user.roles };
     const accessToken = this.jwtService.sign(payload);
 

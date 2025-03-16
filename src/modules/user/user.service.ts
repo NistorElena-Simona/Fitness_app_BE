@@ -48,7 +48,7 @@ export class UserService {
       where: { verificationToken: token, verificationExpiresAt: { gte: new Date() } },
     });
 
-    if (!user) throw new BadRequestException('Invalid or expired token');
+    if (!user) throw new BadRequestException('Invalid or expired token. Try to login to get a new email verification');
 
     await this.prisma.user.update({
       where: { id: user.id },
