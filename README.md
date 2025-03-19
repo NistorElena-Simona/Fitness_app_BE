@@ -168,7 +168,7 @@ Technology stack
 # Login
 curl -X POST http://localhost:3000/auth/login \
      -H "Content-Type: application/json" \
-     -d '{"username": "yourUsername", "password": "yourPassword"}'
+     -d '{"email": "yourUsername", "password": "yourPassword"}'
 
 # Get user info 
 curl -H "Authorization: Bearer <your_jwt_token>" http://localhost:3000/user/me
