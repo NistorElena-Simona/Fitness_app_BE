@@ -166,69 +166,85 @@ Technology stack
 
 # (Import curl in postman for testing)
 # Login
+```bash
 curl -X POST http://localhost:3000/auth/login \
      -H "Content-Type: application/json" \
      -d '{"email": "yourUsername", "password": "yourPassword"}'
-
+```
 # Get user info 
+```bash
 curl -H "Authorization: Bearer <your_jwt_token>" http://localhost:3000/user/me
-
+```
 # Refresh Token
+```bash
 curl -X POST http://localhost:3000/auth/refresh \
      -H "Content-Type: application/json" \
      -d '{"refreshToken": "yourRefreshToken"}'
-
+```
 # Request Password Reset
+```bash
 curl -X POST http://localhost:3000/auth/request-password-reset \
      -H "Content-Type: application/json" \
      -d '{"email": "user@example.com"}'
-
+```
 # Reset Password
+```bash
 curl -X POST http://localhost:3000/auth/reset-password \
      -H "Content-Type: application/json" \
      -d '{"token": "resetToken", "newPassword": "yourNewPassword"}'
-
+```
 # Logout
+```bash
 curl -X POST http://localhost:3000/auth/logout \
      -H "Content-Type: application/json" \
      -d '{"refreshToken": "yourRefreshToken"}'
-
+```
 
 # Register a new user(first user registered in db will be admin)
+```bash
 curl -X POST http://localhost:3000/user/register \
      -H "Content-Type: application/json" \
      -d '{"email": "user@example.com", "password": "yourPassword", "name": "Your Name"}'
-
+```
 # Verify Email
+```bash
 curl -X GET http://localhost:3000/user/verify-email?token=yourVerificationToken
-
+```
 # Login with google
+```bash
 http://localhost:3000/auth/google
+```
 
 # Add Role to User
+```bash
 curl -X PATCH http://localhost:3000/admin/add-role/{userId} \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer yourAccessToken" \
      -d '{"role": "ADMIN"}'
+```
 
 # Remove Role from User
+```bash
 curl -X DELETE http://localhost:3000/admin/remove-role/{userId} \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer yourAccessToken" \
      -d '{"role": "USER"}'
-
+```
 # Delete User
+```bash
 curl -X DELETE http://localhost:3000/admin/delete-user/{userId} \
      -H "Authorization: Bearer yourAccessToken"
-
+```
 # Activate User
+```bash
 curl -X PUT http://localhost:3000/admin/activate-user/{userId} \
      -H "Authorization: Bearer yourAccessToken"
-
+```
 # Deactivate User
+```bash
 curl -X PUT http://localhost:3000/admin/deactivate-user/{userId} \
      -H "Authorization: Bearer yourAccessToken"
-
+```
 ## Get Google ID (for login/register with google)
 Go to the Google Developer Console: https://console.cloud.google.com
 Create a new project (or use an existing one).
