@@ -113,7 +113,6 @@ async validateGoogleUser(profile: any) {
 
   let user = await this.prisma.user.findUnique({ where: { email } });
 
-  // If the user doesn't exist, create a new user and mark as unverified
   if (!user) {
     user = await this.prisma.user.create({
       data: {
@@ -136,7 +135,6 @@ async validateGoogleUser(profile: any) {
     };
   }
  
-  // If the user is verified, generate a JWT token for them
   const token = this.jwtService.sign({ userId: user.id });
 
   return { user, token };
