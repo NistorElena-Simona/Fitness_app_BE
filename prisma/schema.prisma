@@ -38,3 +38,18 @@ model RefreshToken {
   expiresAt DateTime
   createdAt DateTime @default(now())
 }
+
+model Muscle {
+  id        Int      @id @default(autoincrement())
+  name      String
+  exercises Exercise[]
+}
+
+model Exercise {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  imageUrl    String?  // Coloana pentru a salva pozele
+  muscleId    Int
+  muscle      Muscle   @relation(fields: [muscleId], references: [id])
+}

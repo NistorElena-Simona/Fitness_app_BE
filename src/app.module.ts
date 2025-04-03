@@ -6,9 +6,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
+import { MusclesModule } from './modules/muscles/muscles.module';
+import { ExercisesModule } from './modules/exercises/exercises.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), MailModule, UserModule, AuthModule, AdminModule],
+  imports: [ConfigModule.forRoot(), MailModule, UserModule, AuthModule, AdminModule,MusclesModule, ExercisesModule],
   controllers: [AppController],
   providers: [AppService],
 })
