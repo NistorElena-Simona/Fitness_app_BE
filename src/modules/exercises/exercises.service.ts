@@ -11,7 +11,8 @@ export class ExercisesService {
       data: {
         name: createExerciseDto.name,
         muscleId: createExerciseDto.muscleId,
-        description: createExerciseDto.description
+        description: createExerciseDto.description,
+        imageUrl: createExerciseDto.imageUrl
       },
     });
   }
@@ -39,9 +40,27 @@ export class ExercisesService {
   }
 
   async update(id: number, updateExerciseDto: CreateExerciseDto) {
+    console.log('Updating exercise with ID:', id);
+    console.log('Update data:', updateExerciseDto);
+
+    const exercise = await this.prisma.exercise.findUnique({
+      where: { id }
+    });
+
+    console.log('Found exercise:', exercise);
+
+    if (!exercise) {
+      throw new Error(`Exercise with ID ${id} not found`);
+    }
+
     return this.prisma.exercise.update({
       where: { id },
-      data: updateExerciseDto,
+      data: {
+        name: updateExerciseDto.name,
+        description: updateExerciseDto.description,
+        imageUrl: updateExerciseDto.imageUrl,
+        muscleId: updateExerciseDto.muscleId
+      }
     });
   }
 
