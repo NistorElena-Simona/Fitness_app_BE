@@ -8,12 +8,28 @@ export class ExercisesService {
 
   async create(createExerciseDto: CreateExerciseDto) {
     return this.prisma.exercise.create({
-      data: createExerciseDto,
+      data: {
+        name: createExerciseDto.name,
+        muscleId: createExerciseDto.muscleId,
+        description: createExerciseDto.description
+      },
     });
   }
 
   async findAll() {
-    return this.prisma.exercise.findMany();
+    const exercises = await this.prisma.exercise.findMany({
+      orderBy: {
+        id: 'asc'
+      }
+    });
+    
+    console.log('Before sorting:', exercises.map(e => e.id));
+    
+    const sortedExercises = exercises.sort((a, b) => Number(a.id) - Number(b.id));
+    
+    console.log('After sorting:', sortedExercises.map(e => e.id));
+    
+    return sortedExercises;
   }
 
   async findOne(id: number) {
@@ -36,8 +52,34 @@ export class ExercisesService {
   }
 
   async createBulk(exercises: CreateExerciseDto[]) {
-    return Promise.all(
-      exercises.map(exercise => this.create(exercise))
-    );
+    return this.prisma.$transaction(async (prisma) => {
+      // Creăm exercițiile unul câte unul pentru a păstra ordinea
+      const createdExercises = [];
+      
+      for (const exercise of exercises) {
+        const created = await prisma.exercise.create({
+          data: {
+            name: exercise.name,
+            muscleId: exercise.muscleId,
+            description: exercise.description
+          }
+        });
+        createdExercises.push(created);
+      }
+
+      return createdExercises;
+    });
+  }
+
+  async findByMuscleId(muscleId: number) {
+    console.log("Here i am ");
+    return this.prisma.exercise.findMany({
+      where: {
+        muscleId: muscleId
+      },
+      orderBy: {
+        id: 'asc' // Asigură-te că exercițiile sunt returnate în ordine crescătoare
+      }
+    });
   }
 } 
