@@ -12,7 +12,8 @@ export class ExercisesService {
         name: createExerciseDto.name,
         muscleId: createExerciseDto.muscleId,
         description: createExerciseDto.description,
-        imageUrl: createExerciseDto.imageUrl
+        imageUrl: createExerciseDto.imageUrl,
+        videoUrl: createExerciseDto.videoUrl
       },
     });
   }
@@ -59,7 +60,8 @@ export class ExercisesService {
         name: updateExerciseDto.name,
         description: updateExerciseDto.description,
         imageUrl: updateExerciseDto.imageUrl,
-        muscleId: updateExerciseDto.muscleId
+        muscleId: updateExerciseDto.muscleId,
+        videoUrl: updateExerciseDto.videoUrl
       }
     });
   }
@@ -80,7 +82,9 @@ export class ExercisesService {
           data: {
             name: exercise.name,
             muscleId: exercise.muscleId,
-            description: exercise.description
+            description: exercise.description,
+            imageUrl: exercise.imageUrl,
+            videoUrl: exercise.videoUrl
           }
         });
         createdExercises.push(created);

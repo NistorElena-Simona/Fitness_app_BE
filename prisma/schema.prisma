@@ -28,6 +28,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   resetPasswordToken    String?
   resetPasswordExpires  DateTime?
+  favoriteExercises FavoriteExercise[]
 }
 
 model RefreshToken {
@@ -51,5 +52,46 @@ model Exercise {
   description String?
   imageUrl    String?  // Coloana pentru a salva pozele
   muscleId    Int
+  videoUrl    String?   //colona pentru video
   muscle      Muscle   @relation(fields: [muscleId], references: [id])
+  favoriteUsers   FavoriteExercise[]
+  dayExercises    DayExercise[]
+}
+
+model FavoriteExercise {
+  id          Int      @id @default(autoincrement())
+  userId      String   // Modificat din Int în String pentru a se potrivi cu tipul ID-ului din User
+  exerciseId  Int      
+  createdAt   DateTime @default(now())
+  exercise    Exercise @relation(fields: [exerciseId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, exerciseId]) // Un utilizator nu poate avea același exercițiu favorit de mai multe ori
+}
+
+model Challenge {
+  id          Int       @id @default(autoincrement())
+  name        String    // ex: "7 Days Challenge", "14 Days Challenge"
+  description String
+  duration    Int       // numărul de zile
+  createdAt   DateTime  @default(now())
+  days        Day[]     // relație cu zilele challenge-ului
+}
+
+model Day {
+  id          Int       @id @default(autoincrement())
+  dayNumber   Int       // numărul zilei în challenge (1-7 sau 1-14)
+  challengeId Int
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  exercises   DayExercise[] // exercițiile pentru această zi
+}
+
+model DayExercise {
+  id          Int      @id @default(autoincrement())
+  dayId       Int
+  exerciseId  Int
+  sets        Int      // numărul de seturi
+  reps        Int      // numărul de repetiții
+  day         Day      @relation(fields: [dayId], references: [id])
+  exercise    Exercise @relation(fields: [exerciseId], references: [id])
 }

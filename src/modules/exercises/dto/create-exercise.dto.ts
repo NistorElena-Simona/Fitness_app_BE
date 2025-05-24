@@ -11,6 +11,10 @@ export class CreateExerciseDto {
   @IsOptional()
   @IsString()
   imageUrl?: string;
-
+  
   muscleId: number; // ID-ul mușchiului asociat
+
+  @IsOptional()
+  @IsString()
+  videoUrl?: string;
 } 

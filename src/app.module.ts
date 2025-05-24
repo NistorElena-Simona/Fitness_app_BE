@@ -8,9 +8,21 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MusclesModule } from './modules/muscles/muscles.module';
 import { ExercisesModule } from './modules/exercises/exercises.module';
+import { ChallengesModule } from './modules/challenges/challenges.module';
+import { FavoritesModule } from './modules/favorites/favorites.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), MailModule, UserModule, AuthModule, AdminModule,MusclesModule, ExercisesModule],
+  imports: [
+    ConfigModule.forRoot(),
+    MailModule,
+    UserModule,
+    AuthModule,
+    AdminModule,
+    MusclesModule,
+    ExercisesModule,
+    ChallengesModule,
+    FavoritesModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
