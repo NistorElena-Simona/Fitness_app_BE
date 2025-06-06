@@ -1,6 +1,7 @@
 import { PrismaService } from "src/database/prisma.service";
 import { CreateChallengeDto } from "./dto/create-challenge.dto";
 import { Injectable } from "@nestjs/common";
+import { UpdateChallengeDto } from "./dto/update-challenge.dto";
 
 @Injectable()
 export class ChallengesService {
@@ -87,4 +88,30 @@ export class ChallengesService {
       }
     });
   }
+
+  async updateChallenge(id: number, updateData: UpdateChallengeDto) {
+  
+  return this.prisma.challenge.update({
+    where: { id },
+    data: {
+      name: updateData.name,
+      description: updateData.description,
+      duration: updateData.duration,
+      ...(updateData.days && {
+        days: {
+          create: updateData.days.map((day) => ({
+            dayNumber: day.dayNumber,
+            exercises: {
+              create: day.exercises.map((ex) => ({
+                exerciseId: ex.exerciseId,
+                sets: ex.sets,
+                reps: ex.reps
+              }))
+            }
+          }))
+        }
+      })
+    }
+  });
+}
 } 

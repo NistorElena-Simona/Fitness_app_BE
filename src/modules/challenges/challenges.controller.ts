@@ -1,6 +1,7 @@
-import { Controller, Post, Get, Param, Body, ParseIntPipe } from '@nestjs/common';
+import { Controller, Post, Get, Param, Body, ParseIntPipe, Put } from '@nestjs/common';
 import { ChallengesService } from './challenges.service';
 import { CreateChallengeDto } from './dto/create-challenge.dto';
+import { UpdateChallengeDto } from './dto/update-challenge.dto';
 
 @Controller('challenges')
 export class ChallengesController {
@@ -28,4 +29,13 @@ export class ChallengesController {
   ) {
     return this.challengesService.getDayExercises(id, dayNumber);
   }
+
+  //probleme aici la PUT la challenges
+  @Put(':id')
+async updateChallenge(
+  @Param('id', ParseIntPipe) id: number,
+  @Body() updateChallengeDto: UpdateChallengeDto
+) {
+  return this.challengesService.updateChallenge(id, updateChallengeDto);
+}
 } 

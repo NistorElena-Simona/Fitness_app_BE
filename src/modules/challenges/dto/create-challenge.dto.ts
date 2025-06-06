@@ -15,3 +15,4 @@ export class CreateDayExerciseDto {
   sets: number;
   reps: number;
 } 
+
