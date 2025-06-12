@@ -39,7 +39,7 @@ export class PaymentService {
               currency: 'usd',
               product_data: {
                 name: 'Premium Subscription - Fitness App',
-                description: 'Acces la toate exercițiile premium și challenge-urile exclusive',
+                description: 'Access to all premium exercises and exclusive challenges',
                 images: ['https://via.placeholder.com/300x200?text=Premium+Fitness'],
               },
               unit_amount: 1000, 
@@ -59,6 +59,7 @@ export class PaymentService {
         shipping_address_collection: {
           allowed_countries: ['RO'],
         },
+        locale: 'en',
       });
 
       return {
@@ -122,7 +123,7 @@ export class PaymentService {
 
         return {
           success: true,
-          message: 'Plata a fost confirmată și premium-ul a fost activat',
+          message: 'Payment confirmed and premium activated',
           paymentIntentId: paymentIntentId,
           amount: paymentIntent.amount / 100,
           currency: paymentIntent.currency.toUpperCase(),
@@ -130,12 +131,12 @@ export class PaymentService {
       } else {
         return {
           success: false,
-          message: 'Plata nu a fost finalizată cu succes',
+          message: 'Payment failed',
           status: paymentIntent.status,
         };
       }
     } catch (error) {
-      throw new Error(`Eroare la confirmarea plății: ${error.message}`);
+      throw new Error(`Payment confirmation error: ${error.message}`);
     }
   }
 
@@ -153,7 +154,7 @@ export class PaymentService {
     });
 
     if (!user) {
-      throw new Error('Utilizatorul nu a fost găsit');
+      throw new Error('User not found');
     }
 
     return {
@@ -173,7 +174,7 @@ export class PaymentService {
     });
 
     if (!user) {
-      throw new Error('Utilizatorul nu a fost găsit');
+      throw new Error('User not found');
     }
 
     console.log('Debugging payment:', { amount, type: typeof amount, comparison: amount >= 10 });
@@ -197,14 +198,14 @@ export class PaymentService {
 
       return {
         ...paymentResult,
-        message: 'Plata a fost procesată cu succes! Contul premium a fost activat.',
+        message: 'Payment processed successfully! Premium account activated.',
         premiumActivated: true,
       };
     }
 
     return {
       ...paymentResult,
-      message: 'Plata a fost procesată, dar suma este insuficientă pentru premium (minim 10 USD).',
+      message: 'Payment processed, but amount is insufficient for premium (minimum 10 USD).',
       premiumActivated: false,
     };
   }
@@ -232,7 +233,7 @@ export class PaymentService {
     });
 
     return {
-      message: 'Contul premium a fost activat cu succes',
+      message: 'Premium account activated successfully',
       isPremium: true,
       activatedAt: new Date(),
     };

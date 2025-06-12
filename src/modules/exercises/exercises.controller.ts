@@ -10,6 +10,7 @@ export class ExercisesController {
 
   @Post()
   async create(@Body() createExerciseDto: CreateExerciseDto) {
+    
     return this.exercisesService.create(createExerciseDto);
   }
 
@@ -45,4 +46,6 @@ export class ExercisesController {
   async findByMuscleId(@Param('muscleId', ParseIntPipe) muscleId: number) {
     return this.exercisesService.findByMuscleId(muscleId);
   }
+
+  
 }

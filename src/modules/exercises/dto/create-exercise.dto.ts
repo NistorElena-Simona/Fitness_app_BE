@@ -1,4 +1,4 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class CreateExerciseDto {
   @IsString()
@@ -12,9 +12,11 @@ export class CreateExerciseDto {
   @IsString()
   imageUrl?: string;
   
+  @IsNumber()
   muscleId: number; // ID-ul mușchiului asociat
 
   @IsOptional()
   @IsString()
   videoUrl?: string;
+  
 } 

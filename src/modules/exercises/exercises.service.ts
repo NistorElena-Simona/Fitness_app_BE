@@ -6,14 +6,36 @@ import { PrismaService } from 'src/database/prisma.service';
 export class ExercisesService {
   constructor(private readonly prisma: PrismaService) {}
 
+  // async create(createExerciseDto: CreateExerciseDto) {
+  //   return this.prisma.exercise.create({
+  //     data: {
+  //       name: createExerciseDto.name,
+  //       muscleId: createExerciseDto.muscleId,
+  //       description: createExerciseDto.description,
+  //       imageUrl: createExerciseDto.imageUrl,
+  //       videoUrl: createExerciseDto.videoUrl
+  //     },
+  //   });
+    
+  // }
   async create(createExerciseDto: CreateExerciseDto) {
+    console.log('💾 Service received:', createExerciseDto);
+    console.log('💾 Data keys:', Object.keys(createExerciseDto));
+    console.log('💾 Has id field:', 'id' in createExerciseDto);
+    
+    // Exclude câmpul id pentru a evita conflictele cu auto-increment
+    const { id, ...exerciseData } = createExerciseDto as any;
+    
+    console.log('💾 After excluding id:', exerciseData);
+    console.log('💾 Excluded id value was:', id);
+    
     return this.prisma.exercise.create({
       data: {
-        name: createExerciseDto.name,
-        muscleId: createExerciseDto.muscleId,
-        description: createExerciseDto.description,
-        imageUrl: createExerciseDto.imageUrl,
-        videoUrl: createExerciseDto.videoUrl
+        name: exerciseData.name,
+        muscleId: exerciseData.muscleId,
+        description: exerciseData.description,
+        imageUrl: exerciseData.imageUrl,
+        videoUrl: exerciseData.videoUrl
       },
     });
   }
